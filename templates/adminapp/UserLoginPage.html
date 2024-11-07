@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% extends 'Navbar/ProjectNavbar.html' %}
+{% load static %}
+<html lang="en">
+    <head>
+        <!-- {% include "Navbar/ProjectNavbar.html" %} -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Page</title>
+        <style>
+            /* Inline CSS */
+            
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f2f5;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-name {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-name i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .name {
+            width: 100%;
+            padding: 10px 40px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .name:focus {
+            border-color: #007bff;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    {% block body %}
+        <div class="container">
+            <h2>Login Page</h2>
+            <form method="post" action="{% url 'UserLoginLogic' %}">
+                {% csrf_token %}
+                <div class="input-name">
+                    <i class="fa fa-user-o"></i>
+                    <input type="text" placeholder="Username" class="name" name="username">
+                </div>
+
+                <div class="input-name">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" placeholder="Password" class="name" name="password">
+                </div>
+
+                <div class="input-name">
+                    <input type="submit" class="button" value="Login">
+                </div>
+            </form>
+        </div>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>
